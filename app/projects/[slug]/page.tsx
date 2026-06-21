@@ -6,13 +6,14 @@ import ProjectGallery from "@/components/project-gallery"
 import ProjectTimeline from "@/components/project-timeline"
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = getProjectBySlug(params.slug)
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
 
   if (!project) {
     notFound()
@@ -135,10 +136,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </section>
 
-        {/* Client Testimonial */}
+        {/* Client Note */}
         <section className="mb-16">
           <div className="bg-white rounded-lg p-8 shadow-sm text-center">
-            <h3 className="text-2xl font-serif text-[#2d5e2d] mb-6">Client Testimonial</h3>
+            <h3 className="text-2xl font-serif text-[#2d5e2d] mb-6">Client Note</h3>
             <blockquote className="text-lg text-gray-700 italic leading-relaxed mb-4">
               "{project.clientTestimonial}"
             </blockquote>
@@ -150,13 +151,13 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         <section className="text-center">
           <div className="bg-[#2d5e2d] text-white rounded-lg p-8">
             <h3 className="text-2xl font-serif mb-4">Ready to Transform Your Space?</h3>
-            <p className="text-lg mb-6">Let's create something magical together.</p>
+            <p className="text-lg mb-6">Send photos or call to request a practical local quote.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#booking"
                 className="bg-[#6b8e23] hover:bg-[#556b2f] text-white px-8 py-3 rounded-lg transition-colors duration-200 font-medium"
               >
-                Start Your Project
+                Request a Quote
               </Link>
               <Link
                 href="/#portfolio"

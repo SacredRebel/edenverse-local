@@ -16,6 +16,7 @@ export interface Project {
   title: string
   description: string
   category: string
+  portfolioCategory?: string
   location: string
   duration: string
   completedDate: string
